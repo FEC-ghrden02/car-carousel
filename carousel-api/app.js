@@ -4,10 +4,16 @@ import cors from 'cors';
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
+const path = require('path');
 
 const app = express();
+app.use(express.static(path.join(__dirname, '../carousel-ui2/dist')));
 app.use(express.json());
 app.use(cors());
+
+// app.get('/', (req, res) => {
+//   res.render('index.html');
+// });
 
 // Get all Cars
 app.get('/cars', async (req, res) => {
